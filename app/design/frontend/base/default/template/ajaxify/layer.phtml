@@ -1,0 +1,58 @@
+<?php if ($this->canShowBlock()): $state = $this->getStateInfo() ?>
+<div class="sidebar_col">
+    <div class="block block-layered-nav">
+        <div class="block-title">
+            <strong><span><?php echo $this->__('Shop by') ?></span></strong>
+        </div>
+        <div class="block-content">
+            <?php echo $this->getStateHtml() ?>
+            <?php if ($this->canShowOptions()): ?>
+                <div class="ve-filter">
+                    <input type="hidden" id="ve_layered_url" value="<?php echo $this->htmlEscape($state[0]) ?>"/>
+                    <input type="hidden" id="ve_layered_params" value="<?php echo $this->htmlEscape($state[1]) ?>"/> 
+                    <input type="hidden" id="ve_layered_ajax" value="<?php echo $this->htmlEscape($state[2]) ?>"/> 
+                    <dl id="ve_filters_list">
+                        <?php if ($state[1] AND $this->bNeedClearAll()): ?>
+                            <div class="actions ve_layered_clear_all"><a class="ve_layered_clearall" href="<?php echo $this->htmlEscape($this->getClearAllUrl()) ?>"><?php echo $this->__('Clear All') ?></a></div>            
+                        <?php endif ?>
+
+                        <?php $_filters = $this->getFilters() ?>
+                        <?php foreach ($_filters as $_filter): ?>
+						    <?php //echo '<pre>';     print_r($_filter);   echo '</pre>';  ?>
+							
+                            <?php if ($_filter->getItemsCount()): ?>
+                                <dt class="ve_layered_dt">
+                                <?php if ($clearUrl = $_filter->getClearUrl()): ?>
+                                    <a id="<?php echo $_filter->getVar() ?>-clear" <?php if (!$this->getIsRemoveLinks()): ?>href="<?php echo $this->htmlEscape($clearUrl) ?>" <?php endif; ?> class="btn-remove ve_layered_clear" title="<?php echo $this->__('Remove This Item') ?>"><?php echo $this->__('Remove This Item') ?></a>
+                                <?php endif ?>
+                                <?php echo $this->__($_filter->getName()) ?>
+                                </dt>
+                                <dd <?php echo $this->getHeightStyle() ?> id="ve_layered_<?php echo $_filter->getVar() ?>"><?php echo $_filter->getHtml() ?></dd>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </dl>
+                    <script type="text/javascript">
+                        decorateDataList('narrow-by-list');
+                        ve_layered_init();
+                    </script>
+                </div>
+            <?php endif; ?>
+        </div>
+        
+    </div>
+    </div>
+<?php endif; ?>
+<script type="text/javascript">
+    ve_layered_init();
+</script>
+
+
+
+
+
+
+
+
+
+
+

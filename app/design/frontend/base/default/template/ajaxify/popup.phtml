@@ -1,0 +1,10 @@
+<div id="confProductView">
+    <span class="button b-close bClose"><span>X</span></span>
+    <div class="content">
+        <div id="text"></div>
+        <div id="nav">
+            <button type="button" title="Continue Shopping" class="b-close btn-checkout"><span><span>Continue Shopping</span></span></button>
+            <button type="button" title="Proceed to Checkout" class="btn-proceed-checkout btn-checkout" onclick="setLocation('<?php echo Mage::helper('checkout/cart')->getCartUrl(); ?>')"><span><span>Proceed to Checkout</span></span></button>
+        </div>
+    </div>
+</div>

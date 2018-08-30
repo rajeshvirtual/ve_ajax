@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Virtual Employee Ajaxify
+* 
+* @category     VE
+* @package      Ve_Ajaxify
+* @copyright    Copyright (c) 2015 VE (http://www.virtualemployee.com/)
+* @author       VE (Magento Team)
+* @version      Release: 1.0.0
+*/
+-->
+<config>
+    <modules>
+        <Ve_Ajaxify>
+            <version>1.0.0</version>
+        </Ve_Ajaxify>
+    </modules>
+    <frontend>
+        <routers>
+            <ajaxify>
+                <use>standard</use>
+                <args>
+                    <module>Ve_Ajaxify</module>
+                    <frontName>ajaxify</frontName>
+                </args>
+            </ajaxify>
+        </routers>
+        <layout>
+            <updates>
+                <ajaxify>
+                    <file>ajaxify.xml</file>
+                </ajaxify>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Ve_Ajaxify>
+                    <files>
+                        <default>Ve_Ajaxify.csv</default>
+                    </files>
+                </Ve_Ajaxify>
+            </modules>
+        </translate>
+        <events>
+            <checkout_cart_add_product_complete>
+                <observers>
+                    <ajaxify>
+                        <type>singleton</type>
+                        <class>ajaxify/observer</class>
+                        <method>addToCartEvent</method>
+                    </ajaxify>
+                </observers>
+            </checkout_cart_add_product_complete>
+            <checkout_cart_update_item_complete>
+                <observers>
+                    <ajaxify>
+                        <type>singleton</type>
+                        <class>ajaxify/observer</class>
+                        <method>updateItemEvent</method>
+                    </ajaxify>
+                </observers>
+            </checkout_cart_update_item_complete>
+            <!--for configurable products-->
+            <controller_action_postdispatch_catalog_product_view>
+                <observers>
+                    <ajaxify>
+                        <class>ajaxify/observer</class>
+                        <method>getConfigurableOptions</method>
+                    </ajaxify>
+                </observers>
+            </controller_action_postdispatch_catalog_product_view>
+            <!--for group products-->
+            <controller_action_predispatch_checkout_cart_add>
+                <observers>
+                    <ajaxify>
+                        <type>singleton</type>
+                        <class>ajaxify/observer</class>
+                        <method>getGroupProductOptions</method>
+                    </ajaxify>
+                </observers>
+            </controller_action_predispatch_checkout_cart_add>
+        </events>
+    </frontend>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <Ve_Ajaxify>
+                    <files>
+                        <default>Ve_Ajaxify.csv</default>
+                    </files>
+                </Ve_Ajaxify>
+            </modules>
+        </translate>
+    </adminhtml> 
+    
+   
+    <global> 
+        <models>
+            <ajaxify>
+                <class>Ve_Ajaxify_Model</class>
+            </ajaxify>
+        </models>     
+    
+        <blocks>
+            <ajaxify>
+                <class>Ve_Ajaxify_Block</class>
+            </ajaxify>
+            
+            <catalog>
+                <rewrite>
+                    <category_view>Ve_Ajaxify_Block_Rewrite_RewriteCatalogCategoryView</category_view>
+                </rewrite> 
+            </catalog>  
+            
+            <catalog>
+                <rewrite>
+                    <layer_view>Ve_Ajaxify_Block_Rewrite_RewriteCatalogLayerView</layer_view>
+                </rewrite>
+            </catalog>
+            <catalogsearch>
+                <rewrite>
+                    <result>Ve_Ajaxify_Block_Rewrite_RewriteCatalogsearchResult</result>
+                </rewrite> 
+            </catalogsearch>
+        </blocks>
+        <helpers>
+            <ajaxify>
+                <class>Ve_Ajaxify_Helper</class>
+            </ajaxify>
+        </helpers>
+        <resources>
+            <ajaxify_setup>
+                <setup>
+                    <module>Ve_Ajaxify</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </ajaxify_setup>
+            <ajaxify_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </ajaxify_write>
+            <ajaxify_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </ajaxify_read>
+        </resources>
+        <rewrite>
+            <Ve_Ajaxify_checkout_cart>
+                <from><![CDATA[#^/checkout/cart/#]]></from>
+                <to>/ajaxify/checkout_cart/</to>
+            </Ve_Ajaxify_checkout_cart>
+        </rewrite>
+    </global> 
+    <default>
+        <ajaxify>
+            <ajaxify>
+                <ajaxify_cart>1</ajaxify_cart>
+                <cat_style>breadcrumbs</cat_style>
+                <price_style>default</price_style>
+                <remove_links>0</remove_links>
+                <reset_filters>1</reset_filters>
+            </ajaxify>  
+        </ajaxify>
+    </default>
+</config>

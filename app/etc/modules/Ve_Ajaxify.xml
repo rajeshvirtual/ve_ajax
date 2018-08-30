@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Virtual Employee Ajaxify
+* 
+* @category     VE
+* @package      Ve_Ajaxify
+* @copyright    Copyright (c) 2015 VE (http://www.virtualemployee.com/)
+* @author       VE (Magento Team)
+* @version      Release: 1.0.0
+*/
+-->
+<config>
+    <modules>
+        <Ve_Ajaxify>
+            <active>true</active>
+            <codePool>community</codePool>
+    	</Ve_Ajaxify>
+    </modules>
+</config>
